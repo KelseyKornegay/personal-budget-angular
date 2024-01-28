@@ -4,32 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Budget</title>
-    <meta name="description" content="A free personal budger app">
-    <meta name="keywords" content="app free budget finance">
+    <!--1.) This is an SEO change-->
+    <meta name="description" content="Discover the benefits of our free personal budget app and learn how it can help you manage your finances effectively.">
+    <!-- 2.) This is an SEO change-->
+    <meta name="keywords" content="budget app, free budget, personal finance management">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="main.css">
+    
 </head>
 <body>
+    <!-- 1.)This is a Semantic HTML Change.-->
+<header>
 
+<!-- 1.)This is an A11y change.-->
 <a href="#main" class="skip">Skip to content</a>
 
-    <nav>
+<!-- 2.) This is an A11y change.-->
+    <nav role="navigation">
         <ul>
-            <li><a href="/">Home</a></li>
-            <li><a href="/about.html">About</a></li>
-            <li><a href="/login.html">Login</a></li>
+            <li><a href="index.html">Home</a></li> <!-- Changed this line from a relative path to an absolute path-->
+            <li><a href="about.html">About</a></li> <!--Changed this line from a relative path to an absolute path-->
+            <li><a href="login.html">Login</a></li>
             <li><a href="https://google.com">Google</a></li>
         </ul>
     </nav>
+</header>
 
-    <div class="hero">
+<!-- 2.)This is a Semantic HTML Change.-->
+    <header class="hero">
         <h1>Personal Budget</h1>
         <h2>A personal-budget management app</h2>
-    </div>
+    </header>
 
-    <main class="center" id="main">
+<!-- 3.)This is an A11y change.-->
+    <main class="center" id="main" role="main">
 
-        <div class="page-area">
+<!--3.) This is a Semantic HTML Change.-->
+        <section class="page-area">
 
             <article>
                 <h1>Stay on track</h1>
@@ -62,7 +73,9 @@
                     This app is free!!! And you are the only one holding your data!
                 </p>
             </article>
-    
+            
+            <!-- 3.) SEO Change. Rendering when it is a duplicate-->
+    <!--
             <article>
                 <h1>Stay on track</h1>
                 <p>
@@ -71,7 +84,7 @@
                     app will help you with that!
                 </p>
             </article>
-    
+        -->
             <article>
                 <h1>Alerts</h1>
                 <p>
@@ -87,23 +100,26 @@
                     because they know it is all good and accounted for.
                 </p>
             </article>
-    
+    <!-- This is not being used
             <article>
                 <h1>Chart</h1>
                 <p>
                     <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
-
-        </div>
+        -->
+        </section>
 
     </main>
 
-    <footer class="bottom">
+<!-- 4.) This is an A11y change.-->
+    <footer class="bottom" role="contentinfo">
         <div class="center">
             All rights reserved &copy; Fabio Nolasco
         </div>
     </footer>
+
+<!-- None of below is being used
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
@@ -133,7 +149,7 @@
         }
 
         function getBudget() {
-            axios.get('http://localhost:3000/budget')
+            axios.get('http://localhost:3000/budget')   /*there is an error here*/
             .then(function (res) {
                 for (var i = 0; i < res.data.myBudget.length; i++) {
                     dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
@@ -145,6 +161,6 @@
 
         getBudget();
     </script>
-
+-->
 </body>
 </html>

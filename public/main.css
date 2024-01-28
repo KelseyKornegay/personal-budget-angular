@@ -2,9 +2,15 @@
     box-sizing: border-box;
 }
 
+/*This is an SEO Change. Changed the font size from 10px to 14px*/
 body {
-    font-size: 10px;
+    font-size: 14px;
     font-family: Tahoma, Arial;
+}
+
+/*This is an A11y Change*/
+:focus {
+    outline: 2px solid #4d5791; 
 }
 
 nav {
@@ -21,8 +27,8 @@ nav ul li {
     list-style: none;
     display: inline-block;
 }
-
-nav ul li a {
+/*Changed this from nav ul li a to header a*/
+header a {
     display: block;
     padding: 0 20px;
     line-height: 44px;
@@ -31,13 +37,13 @@ nav ul li a {
     color: #fff;
     margin: 0;
 }
-
-nav ul li a:hover  {
+/*Changed this from nav ul li a:hover to header a:hover */
+header a:hover  {
     background-color: white;
     color: #4d5791;
 }
-
-div.hero {
+/*changed from div.hero to .hero*/
+.hero {
     height: 350px;
     background-color: #b4c6f0;
     background-image: url('bg.png');
@@ -46,20 +52,20 @@ div.hero {
     background-position: center bottom;
     padding-top: 40px;
 }
-
-div.hero h1,
-div.hero h2 {
+/*Changed from div.hero h1, div.hero h2 to .hero h1, .hero h2 */
+.hero h1,
+.hero h2 {
     text-align: center;
     margin: 0;
 }
-
-div.hero h1 {
+/* Changed from div.hero h1 to .hero h1 */
+.hero h1 {
     color: #fff;
     font-size: 4.2em;
     margin-bottom: 20px;
 }
-
-div.hero h2 {
+/* Changed from div.hero h2 to .hero h2 */
+.hero h2 {
     color: #4d5791;
 }
 
