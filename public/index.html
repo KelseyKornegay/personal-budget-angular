@@ -74,17 +74,6 @@
                 </p>
             </article>
             
-            <!-- 3.) SEO Change. Rendering when it is a duplicate-->
-    <!--
-            <article>
-                <h1>Stay on track</h1>
-                <p>
-                    Do you know where you are spending your money? If you really stop to track it down,
-                    you would get surprised! Proper budget management depends on real data... and this
-                    app will help you with that!
-                </p>
-            </article>
-        -->
             <article>
                 <h1>Alerts</h1>
                 <p>
@@ -100,14 +89,14 @@
                     because they know it is all good and accounted for.
                 </p>
             </article>
-    <!-- This is not being used
+   
             <article>
                 <h1>Chart</h1>
                 <p>
                     <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </article>
-        -->
+
         </section>
 
     </main>
@@ -119,11 +108,11 @@
         </div>
     </footer>
 
-<!-- None of below is being used
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js" integrity="sha512-quHCp3WbBNkwLfYUMd+KwBAgpVukJu5MncuQaWXgCrfgcxCJAq/fo+oqrRKOj+UKEmyMCG3tb8RB63W+EmrOBg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js" integrity="sha512-s+xg36jbIujB2S2VKfpGmlC3T5V2TF3lY48DX7u2r9XzGzgPsa6wTpOQA7J9iffvdeBN0q9tKzRxVxw1JviZPg==" crossorigin="anonymous"></script>
-
+    <!--First is axios link, second us chart.js-->
     <script>
         var dataSource = {
                 datasets: [
@@ -149,18 +138,18 @@
         }
 
         function getBudget() {
-            axios.get('http://localhost:3000/budget')   /*there is an error here*/
+            axios.get('/budget')   
             .then(function (res) {
+                console.log(res);
                 for (var i = 0; i < res.data.myBudget.length; i++) {
                     dataSource.datasets[0].data[i] = res.data.myBudget[i].budget;
                     dataSource.labels[i] = res.data.myBudget[i].title;
-                    createChart();
                 }
+                createChart();
             });
         }
-
         getBudget();
     </script>
--->
+
 </body>
 </html>
