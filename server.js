@@ -16,7 +16,7 @@ app.get('/hello', (req, res) => {   /*would have to go to localhost:3000/hello t
     res.send('Hello World!');
 });
 
-
+/*
 app.get('/budget', (req, res) => {  
    try {
     const data = fs.readFileSync('budget.json', 'utf-8');
@@ -25,6 +25,23 @@ app.get('/budget', (req, res) => {
    } catch (err) {
         console.log(err.message)
    }
+});
+*/
+app.get('/budget', (req, res) => {
+    fs.readFile('budget.json', 'utf-8', (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error reading budget data');
+            return;
+        }
+        try {
+            const budgetData = JSON.parse(data);
+            res.json(budgetData);
+        } catch (parseErr) {
+            console.error(parseErr);
+            res.status(500).send('Error parsing budget data');
+        }
+    });
 });
 
 app.listen(port, () => {
