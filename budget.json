@@ -6,7 +6,7 @@
         },
         {
             "title": "Rent",
-            "budget": 1500
+            "budget": 1200
         },
         {
             "title": "Grocery",
@@ -22,11 +22,11 @@
         },
         {
             "title": "Wifi",
-            "budget": 50
+            "budget": 100
         },
         {
             "title": "Toiletries",
-            "budget": 60
+            "budget": 90
         }
     ]
 }
