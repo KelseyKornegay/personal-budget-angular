@@ -10,7 +10,7 @@ import { DefaultArcObject } from "d3";
   templateUrl: "./donut.component.html",
   styleUrls: ["./donut.component.scss"]
 })
-export class D3DonutComponent implements OnInit {
+export class D3DonutComponent implements OnInit { /*have to change and get these from the json*/
   @Input("data") private data: SimpleDataModel[] = [
     { name: "a", value: "9", color: "#665faac" },
     { name: "b", value: "20", color: "#dd8050c4" },
@@ -21,7 +21,7 @@ export class D3DonutComponent implements OnInit {
     { name: "g", value: "7", color: "#17a2b8" },
     { name: "h", value: "14", color: "#976a6af2" }
   ];
-  private margin = { top: 10, right: 30, bottom: 30, left: 40 };
+  private margin = { top: 100, right: 100, bottom: 100, left: 100 };
   private width = 450;
   private height = 450;
   private svg: any;
@@ -86,7 +86,7 @@ export class D3DonutComponent implements OnInit {
     // The arc generator
     var arc = this.d3.d3
       .arc()
-      .innerRadius(this.radius * 0.5) // This is the size of the donut hole
+      .innerRadius(this.radius * 0.4) // This is the size of the donut hole
       .outerRadius(this.radius * 0.8);
 
     // Another arc that won't be drawn. Just for labels positioning

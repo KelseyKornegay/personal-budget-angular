@@ -1,5 +1,4 @@
-
-import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Inject, PLATFORM_ID, ViewChild, ElementRef } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart } from 'chart.js/auto';
 import { isPlatformBrowser } from '@angular/common'; // Import the isPlatformBrowser function
@@ -10,7 +9,7 @@ import { DataService } from '../data.service';
   templateUrl: './homepage.component.html',
   styleUrls: ['./homepage.component.scss']
 })
-export class HomepageComponent implements OnInit  { //AfterViewInit
+export class HomepageComponent implements OnInit, AfterViewInit {
 
   public dataSource = {
     datasets: [{
@@ -28,11 +27,12 @@ export class HomepageComponent implements OnInit  { //AfterViewInit
     labels: [''],
   };
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private myDataService : DataService) { }
+ // @ViewChild('myChart') myChart!: ElementRef<HTMLCanvasElement>; //suggested change
 
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private myDataService: DataService) { }
 
   ngOnInit(): void {
-    if(this.myDataService.getData() == null){
+    if (this.myDataService.getData() == null) {
       this.http.get('http://localhost:3000/budget').subscribe((res: any) => {
         for (let i = 0; i < res.myBudget.length; i++) {
           this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
@@ -41,33 +41,36 @@ export class HomepageComponent implements OnInit  { //AfterViewInit
       });
 
       this.myDataService.setData(this.dataSource);
-
-      this.createChart();
-
-    } else {
-
-      this.createChart();
-
     }
   }
 
-
-  /*ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) { // Check if running in the browser environment
-      this.createChart();
+  ngAfterViewInit(): void {
+    { this.createChart();
     }
   }
-  */
 
-  createChart(): void {
-    const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+  /*createChart(): void {
+    const ctx = this.myChart.nativeElement; // suggested change
     if (ctx) {
       const myPieChart = new Chart(ctx, {
         type: "pie",
         data: this.myDataService.getData(),
       });
     } else {
-      console.error("Canvas element with id 'myChart' not found.");
+      console.error("Canvas element for the chart not found.");
     }
   }
+} */
+
+createChart(): void {
+  const ctx = document.getElementById("myChart") as HTMLCanvasElement;
+  if (ctx) {
+    const myPieChart = new Chart(ctx, {
+      type: "pie",
+      data: this.myDataService.getData(),
+    });
+  } else {
+    console.error("Canvas element with id 'myChart' not found.");
+  }
+}
 }
