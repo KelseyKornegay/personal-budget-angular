@@ -479,10 +479,17 @@ polyline {
   fill: none;
 }
 
+/* Below 2 are not doing anything
+
+#myChart {
+  height: 100% ;
+  width: 100%;
+}
+
 #chart-container {
 height: 500px;
 }
-
+*/
 
 @media screen and (min-width: 768px) {
   main article {

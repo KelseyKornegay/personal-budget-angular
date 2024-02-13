@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { SimpleDataModel } from "../charts.model";
 import { D3Service } from "../d3.service";
 import { DefaultArcObject } from "d3";
+import { DataService } from '../data.service';
 
 
 @Component({
@@ -10,6 +11,8 @@ import { DefaultArcObject } from "d3";
   templateUrl: "./donut.component.html",
   styleUrls: ["./donut.component.scss"]
 })
+
+
 export class D3DonutComponent implements OnInit { /*have to change and get these from the json*/
   @Input("data") private data: SimpleDataModel[] = [
     { name: "a", value: "9", color: "#665faac" },
@@ -22,15 +25,18 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
     { name: "h", value: "14", color: "#976a6af2" }
   ];
   private margin = { top: 100, right: 100, bottom: 100, left: 100 };
-  private width = 450;
-  private height = 450;
+  private width = 270;
+  private height = 270;
   private svg: any;
   private colors: any;
   private radius = Math.min(this.width, this.height) / 2 - this.margin.left;
-  constructor(private d3: D3Service) {}
+  private myData: any;
+  constructor(private d3: D3Service, private myDataService: DataService) {}
 
   ngOnInit(): void {
     this.createSvg();
+    this.myData = this.myDataService.getData();
+    console.log(this.myData);
     this.createColors(this.data);
     this.drawChart();
     console.log('ng has been called');
@@ -116,6 +122,7 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
       .attr("stroke", "black")
       .style("fill", "none")
       .attr("stroke-width", 1)
+      .style("stroke-width", 0.5) /*added this*/
       .attr("points", (d: DefaultArcObject) => {
         var posA = arc.centroid(d); // line insertion in the slice
         var posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
@@ -143,6 +150,7 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
       .style("text-anchor", (d: { startAngle: number; endAngle: number; }) => {
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? "start" : "end";
-      });
+      })
+      .style("font-size", "5px"); /*added this*/
   }
 }
