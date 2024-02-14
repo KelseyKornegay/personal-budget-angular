@@ -31,37 +31,37 @@ export class HomepageComponent implements OnInit, AfterViewInit {
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private myDataService: DataService) { }
 
+  // ngOnInit(): void {
+  //   //if (this.myDataService.getData() == null) {
+  //     this.http.get('http://localhost:3000/budget').subscribe((res: any) => {
+  //       for (let i = 0; i < res.myBudget.length; i++) {
+  //         this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
+  //         this.dataSource.labels[i] = res.myBudget[i].title;
+  //       }
+  //           console.log("This data is being set", this.dataSource.datasets[0], this.dataSource.labels);
+  //       this.myDataService.setData(this.dataSource);
+  //       this.createChart();
+  //     });
+  //   }
+
   ngOnInit(): void {
-    //if (this.myDataService.getData() == null) {
-      this.http.get('http://localhost:3000/budget').subscribe((res: any) => {
-        for (let i = 0; i < res.myBudget.length; i++) {
-          this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
-          this.dataSource.labels[i] = res.myBudget[i].title;
-        }
-            console.log("This data is being set", this.dataSource.datasets[0], this.dataSource.labels);
-        this.myDataService.setData(this.dataSource);
-        this.createChart();
-      });
-    }
+    this.myDataService.getBudget().subscribe((responseData: any) => {
+      const data = responseData.myBudget;
+      const datasets = [{
+        data: data.map((item: { budget: any; }) => item.budget),
+        backgroundColor: this.dataSource.datasets[0].backgroundColor, // Use the predefined backgroundColor
+      }];
+      const labels = data.map((item: { title: any; }) => item.title);
+      const newData = { datasets, labels };
+      this.myDataService.setData(newData);
+      this.createChart();
+    });
+  }
 
 
   ngAfterViewInit(): void {
-    //{ this.createChart();
-   // }
-  }
 
-  /*createChart(): void {
-    const ctx = this.myChart.nativeElement; // suggested change
-    if (ctx) {
-      const myPieChart = new Chart(ctx, {
-        type: "pie",
-        data: this.myDataService.getData(),
-      });
-    } else {
-      console.error("Canvas element for the chart not found.");
-    }
   }
-} */
 
 createChart(): void {
   const ctx = document.getElementById("myChart") as HTMLCanvasElement;

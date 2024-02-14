@@ -34,11 +34,20 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
   constructor(private d3: D3Service, private myDataService: DataService) {}
 
   ngOnInit(): void {
-    this.createSvg();
-    this.myData = this.myDataService.getData();
-    console.log(this.myData);
-    this.createColors(this.myData);
-    this.drawChart();
+
+    this.myDataService.getBudget().subscribe((responseData:any)=> {
+      this.createSvg();
+      this.myData = responseData.myBudget;
+      console.log(JSON.stringify(this.myData));
+      this.createColors(this.myData);
+      this.drawChart();
+    })
+
+    // this.createSvg();
+    // this.myData = this.myDataService.getData();
+    // console.log(this.myData);
+    // this.createColors(this.myData);
+    // this.drawChart();
     console.log('ng has been called');
   }
 
@@ -82,12 +91,13 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
   private drawChart(): void {
     // Compute the position of each group on the pie:
     var pie = this.d3.d3
-      .pie<SimpleDataModel>()
+      .pie()
       .sort(null) // Do not sort group by size
-      .value(d => {
-        return +d.value;
+      .value((d:any) => {
+        return d.budget;
       });
-    var data_ready:any = pie(this.data);
+
+    var data_ready:any = pie(this.myData);
 
     // The arc generator
     var arc = this.d3.d3
@@ -108,7 +118,7 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
       .enter()
       .append("path")
       .attr("d", arc)
-      .attr("fill", (d: { data: { value: any; }; }) => this.colors(d.data.value))
+      .attr("fill", (d:any) => this.colors(d.data.budget))
       .attr("stroke", "white")
       .style("stroke-width", "2px")
       .style("opacity", 0.7);
@@ -138,8 +148,8 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
       .data(data_ready)
       .enter()
       .append("text")
-      .text((d: { data: { name: any; }; }) => {
-        return d.data.name;
+      .text((d:any) => {
+        return d.data.title;
       })
       .attr("transform", (d: DefaultArcObject) => {
         var pos = outerArc.centroid(d);
