@@ -32,21 +32,22 @@ export class HomepageComponent implements OnInit, AfterViewInit {
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object, private myDataService: DataService) { }
 
   ngOnInit(): void {
-    if (this.myDataService.getData() == null) {
+    //if (this.myDataService.getData() == null) {
       this.http.get('http://localhost:3000/budget').subscribe((res: any) => {
         for (let i = 0; i < res.myBudget.length; i++) {
           this.dataSource.datasets[0].data[i] = res.myBudget[i].budget;
           this.dataSource.labels[i] = res.myBudget[i].title;
         }
+            console.log("This data is being set", this.dataSource.datasets[0], this.dataSource.labels);
+        this.myDataService.setData(this.dataSource);
+        this.createChart();
       });
-
-      this.myDataService.setData(this.dataSource);
     }
-  }
+
 
   ngAfterViewInit(): void {
-    { this.createChart();
-    }
+    //{ this.createChart();
+   // }
   }
 
   /*createChart(): void {

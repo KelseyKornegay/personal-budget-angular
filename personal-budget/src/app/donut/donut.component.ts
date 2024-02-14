@@ -25,8 +25,8 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
     { name: "h", value: "14", color: "#976a6af2" }
   ];
   private margin = { top: 100, right: 100, bottom: 100, left: 100 };
-  private width = 270;
-  private height = 270;
+  private width = 350;
+  private height = 350;
   private svg: any;
   private colors: any;
   private radius = Math.min(this.width, this.height) / 2 - this.margin.left;
@@ -37,7 +37,7 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
     this.createSvg();
     this.myData = this.myDataService.getData();
     console.log(this.myData);
-    this.createColors(this.data);
+    this.createColors(this.myData);
     this.drawChart();
     console.log('ng has been called');
   }
@@ -75,7 +75,7 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
     });
     this.colors = this.d3.d3
       .scaleOrdinal()
-      .domain(data.map(d => d.value.toString()))
+     // .domain(data.map(d => d.value.toString()))
       .range(colorsRange);
   }
 
@@ -121,8 +121,8 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
       .append("polyline")
       .attr("stroke", "black")
       .style("fill", "none")
-      .attr("stroke-width", 1)
-      .style("stroke-width", 0.5) /*added this*/
+      .attr("stroke-width", 0.5)
+      .style("stroke-width", 1) /*added this*/
       .attr("points", (d: DefaultArcObject) => {
         var posA = arc.centroid(d); // line insertion in the slice
         var posB = outerArc.centroid(d); // line break: we use the other arc generator that has been built only for that
@@ -151,6 +151,6 @@ export class D3DonutComponent implements OnInit { /*have to change and get these
         var midangle = d.startAngle + (d.endAngle - d.startAngle) / 2;
         return midangle < Math.PI ? "start" : "end";
       })
-      .style("font-size", "5px"); /*added this*/
+      .style("font-size", "8px"); /*added this*/
   }
 }
